@@ -14,6 +14,10 @@
 </style>
 <body>
 
+<?php
+ import "./page/common/navbar.html";
+?>
+
 <!-- Header -->
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
     <h1 class="w3-margin w3-jumbo">START PAGE</h1>
