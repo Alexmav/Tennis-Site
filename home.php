@@ -21,7 +21,7 @@
     <div class="w3-content">
         <div class="w3-twothird">
             <h1>Matchs en coours</h1>
-
+            <table>
                 <thead> <!-- En-tête du tableau -->
                 <tr>
                     <th>Adversaire 1</th>
