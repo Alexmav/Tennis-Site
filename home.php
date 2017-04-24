@@ -7,12 +7,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
 <body>
 
 
 <?php
  include "./page/common/header.php";
- include "./style.css";
 ?>
 
 
@@ -21,7 +21,8 @@
     <div class="w3-content">
         <div class="w3-twothird">
             <h1>Matchs en coours</h1>
-            <table>
+
+            <table width="100%">
                 <thead> <!-- En-tête du tableau -->
                 <tr>
                     <th>Adversaire 1</th>
@@ -30,8 +31,6 @@
                     <th>Tournoi</th>
                 </tr>
                 </thead>
-
-
 
                 <tbody> <!-- Corps du tableau -->
                 <tr>
