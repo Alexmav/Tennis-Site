@@ -1,6 +1,3 @@
-<?php
- include "./page/common/navbar.html";
-?>
 
 <!-- Header -->
 <header class="w3-container w3-red w3-center" style="padding:40px 16px">
