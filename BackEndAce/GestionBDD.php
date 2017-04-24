@@ -33,7 +33,7 @@ class ConvertFunctions
     return getAll("Organisateur");
   }
   function getAllPersonnes(){
-    return getAll("Personne")
+    return getAll("Personne");
   }
   function getAllSets(){
     return getAll("Sets");
@@ -91,7 +91,7 @@ class ConvertFunctions
       $stmt->execute();
 
     }catch(Exception $e){
-      $rst = $e
+      $rst = $e;
     }
 
     return json_encode($rslt);
@@ -158,7 +158,7 @@ class ConvertFunctions
       $stmt->execute();
 
     }catch(Exception $e){
-      $rst = $e
+      $rst = $e;
     }
 
     return json_encode($rslt);
@@ -229,7 +229,7 @@ class ConvertFunctions
   }
 
 
-  function addPersonne($firstNam, $lastName, $country, $gender) throw new Exception("Erreur on addPersonne methode", 1);
+  function addPersonne($firstNam, $lastName, $country, $gender)
   {
     return 0;
   }
