@@ -12,6 +12,7 @@
 
 <?php
 include "./page/common/navbar.html";
+include "./style.css";
 ?>
 
 <!-- Header -->
