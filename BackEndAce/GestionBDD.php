@@ -4,13 +4,234 @@ include("MaBD.php");
 class ConvertFunctions
 {
 
+ // getAll Méthodes
+ function getAll($bddLabel){
+   $bd    = MaBD::getInstance();
+
+   $stmt  = $bd->query("SELECT * FROM " . $bddLabel);
+   $liste = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+   return json_encode($liste);
+ }
+
+  function getAllAdmins(){
+    return getAll("Admin");
+  }
+  function getAllArbitres(){
+    return getAll("Abitre");
+  }
+  function getAllJeux(){
+    return getAll("Jeu");
+  }
+  function getAllJoueurs(){
+    return getAll("Joueur");
+  }
+  function getAllMatchs(){
+    return getAll("Match");
+  }
+  function getAllOrganisateurs(){
+    return getAll("Organisateur");
+  }
   function getAllPersonnes(){
+    return getAll("Personne")
+  }
+  function getAllSets(){
+    return getAll("Sets");
+  }
+  function getAllTournois(){
+    return getAll("Tournoi");
+  }
+
+  // COMMON --------------------------------------------------------------------
+  function connexion($login, $password){
+    return "TODO";
+  }
+
+  // ADMIN ---------------------------------------------------------------------
+  function connexionForAdmin($login, $password){
     $bd    = MaBD::getInstance();
 
-    $stmt  = $bd->query("SELECT * FROM Personne");
-    $liste = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt  = $bd->prepare("SELECT idAdmin FROM Admin WHERE login = :login AND password = :password");
 
-    return $liste;
+    $stmt->bindParam(':login', $login);
+    $stmt->bindParam(':password', $password);
+
+    $stmt->execute();
+
+    $tmp = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return json_encode($tmp[0]);
+  }
+  function addAdmin($login, $password){
+    $bd = MaBD::getInstance();
+    $return = "";
+
+    try{
+      $stmt = $bd->prepare("INSERT INTO Admin SET login = :login, password = :password");
+
+      $stmt->bindParam(':login', $login);
+      $stmt->bindParam(':password', $password);
+
+      $stmt->execute();
+    }catch(Exception $e){
+      $return = $e;
+    }
+
+    return json_encode($return);
+  }
+  function changeAdminPassword($idAdmin, $newPassword){
+    $bd = MaBD::getInstance();
+    $rslt = "";
+
+    try{
+      $stmt = $bd->prepare("UPDATE Admin SET password = :password WHERE idAdmin = :idAdmin");
+
+      $stmt->bindParam(':password', $newPassword);
+      $stmt->bindParam(':idAdmin', $idAdmin);
+
+      $stmt->execute();
+
+    }catch(Exception $e){
+      $rst = $e
+    }
+
+    return json_encode($rslt);
+  }
+
+  // ARBITRE -------------------------------------------------------------------
+  function connexionForArbitre($login, $password){
+    $bd    = MaBD::getInstance();
+
+    $stmt  = $bd->prepare("SELECT IdArbitre, idPersonne FROM Arbitre WHERE Login = :login AND password = :password");
+
+    $stmt->bindParam(':login', $login);
+    $stmt->bindParam(':password', $password);
+
+    $stmt->execute();
+
+    $tmp = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return json_encode($tmp[0]);
+  }
+  function getArbitrePersonne($idArbitre){
+    $bd = MaBD::getInstance();
+    $result = "";
+
+    try{
+
+      $stmt = $bd->prepare("SELECT idPersonne FROM Arbitre WHERE IdArbitre = :idArbitre");
+      $stmt->bindParam(':idArbitre', $idArbitre);
+      $stmt->execute();
+
+      $tmp = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $tmp = $tmp[0];
+
+      $stmt = $bd->prepare("SELECT * FROM Personne WHERE IdPersonne = :idPersonne");
+      $stmt->bindParam(':idPersonne', $tmp);
+      $stmt->execute();
+
+      $tmp = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $result = $tmp[0];
+
+    }catch(Exception $e){
+      $result = $e;
+    }
+
+    return json_encode($result);
+  }
+  function changeAdminPassword($idArbitre, $idPersonne, $newPassword){
+    $bd = MaBD::getInstance();
+    $rslt = "";
+
+    try{
+
+      if(isset($idArbitre)){
+        $stmt = $bd->prepare("UPDATE Arbitre SET password = :password WHERE Idrbitre = :idArbitre");
+
+        $stmt->bindParam(':password', $newPassword);
+        $stmt->bindParam(':idArbitre', $idArbitre);
+      }elseif (isset($idPersonne)) {
+        $stmt = $bd->prepare("UPDATE Arbitre SET password = :password WHERE idPersonne = :idPersonne");
+
+        $stmt->bindParam(':password', $newPassword);
+        $stmt->bindParam(':idPersonne', $idPersonne);
+      }
+
+      $stmt->execute();
+
+    }catch(Exception $e){
+      $rst = $e
+    }
+
+    return json_encode($rslt);
+  }
+  function addArbitre($login, $password, $firstName, $lastName, $country, $gender){
+
+
+    try{
+      $idPers = addPersonne($firstName, $lastName, $country, $gender);
+
+      $stmt = $bd->prepare("INSERT INTO Arbitre SET idPersonne = :idPers, login = login, password = :password");
+      $stmt->bindParam(':idPersonne', $idPers);
+      $stmt->bindParam(':login', $login);
+      $stmt->bindParam(':password', $password);
+      $stmt->execute();
+    }catch(Exception $e){
+      $rslt = $e;
+    }
+
+    return $rslt;
+  }
+
+  // JEU -----------------------------------------------------------------------
+  function getScore($idJeu){
+    $bd = MaBD::getInstance();
+    $result = "";
+
+    try{
+
+      $stmt = $bd->prepare("SELECT * FROM Jeu WHERE idJeu = :idJeu");
+      $stmt->bindParam(':idJeu', $idJeu);
+      $stmt->execute();
+
+      $tmp = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $result = $tmp[0];
+
+    }catch(Exception $e){
+      $result = $e;
+    }
+
+    return json_encode($result);
+  }
+  function getJeuSet($idJeu){
+    $bd = MaBD::getInstance();
+    $result = "";
+
+    try{
+
+      $stmt = $bd->prepare("SELECT idSets FROM Jeu WHERE idJeu = :idJeu");
+      $stmt->bindParam(':idJeu', $idJeu);
+      $stmt->execute();
+
+      $tmp = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $tmp = $tmp[0];
+
+      $stmt = $bd->prepare("SELECT * FROM Sets WHERE idSets = :idSets");
+      $stmt->bindParam(':idSets', $tmp);
+      $stmt->execute();
+
+      $tmp = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $result = $tmp[0];
+
+    }catch(Exception $e){
+      $result = $e;
+    }
+
+    return json_encode($result);
+  }
+
+
+  function addPersonne($firstNam, $lastName, $country, $gender) throw new Exception("Erreur on addPersonne methode", 1);
+  {
+    return 0;
   }
 
 
