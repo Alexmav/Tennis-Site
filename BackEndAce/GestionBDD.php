@@ -1,8 +1,7 @@
 <?php
 include("MaBD.php");
 
-class ConvertFunctions
-{
+
 
  // getAll Méthodes
  function getAll($bddLabel){
@@ -14,6 +13,8 @@ class ConvertFunctions
    return json_encode($liste);
  }
 
+
+
   function getAllAdmins(){
     return getAll("Admin");
   }
@@ -23,9 +24,22 @@ class ConvertFunctions
   function getAllJeux(){
     return getAll("Jeu");
   }
-  function getAllJoueurs(){
-    return getAll("Joueur");
+    function getAllJoueursM(){
+        $bd    = MaBD::getInstance();
+
+        $stmt  = $bd->query("SELECT personne.Prenom, personne.Nom, personne.Nationalite, joueur.Rang FROM joueur INNER JOIN personne ON joueur.IdPersonne = personne.IdPersonne WHERE personne.Sexe=\"M\" ORDER BY joueur.Rang ASC");
+
+        $liste = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return json_encode($liste);
   }
+    function getAllJoueursF(){
+    $bd    = MaBD::getInstance();
+
+    $stmt  = $bd->query("SELECT personne.Prenom, personne.Nom, personne.Nationalite, joueur.Rang FROM joueur INNER JOIN personne ON joueur.IdPersonne = personne.IdPersonne WHERE personne.Sexe=\"F\" ORDER BY joueur.Rang ASC");
+
+    $liste = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return json_encode($liste);
+}
   function getAllMatchs(){
     return getAll("Match");
   }
@@ -137,7 +151,7 @@ class ConvertFunctions
 
     return json_encode($result);
   }
-  function changeAdminPassword($idArbitre, $idPersonne, $newPassword){
+  /*function changeAdminPassword($idArbitre, $idPersonne, $newPassword){
     $bd = MaBD::getInstance();
     $rslt = "";
 
@@ -162,8 +176,8 @@ class ConvertFunctions
     }
 
     return json_encode($rslt);
-  }
-  function addArbitre($login, $password, $firstName, $lastName, $country, $gender){
+  }/*
+  /*function addArbitre($login, $password, $firstName, $lastName, $country, $gender){
 
 
     try{
@@ -179,7 +193,7 @@ class ConvertFunctions
     }
 
     return $rslt;
-  }
+  }*/
 
   // JEU -----------------------------------------------------------------------
   function getScore($idJeu){
@@ -312,6 +326,6 @@ class ConvertFunctions
 
   }
 
-}
+
 
 ?>

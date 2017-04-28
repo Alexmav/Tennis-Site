@@ -8,6 +8,9 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="style.css">
+
+
+
 <body>
 
 
@@ -24,9 +27,14 @@
 
 <?php
  include "./page/common/header.php";
+
 ?>
 
-
+  <?php
+  include"./BackEndAce/GestionBDD.php";
+  $datas = array();
+  $datas = json_decode(getAllJoueursM());
+  ?>
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
     <div class="w3-content">
@@ -42,7 +50,9 @@
                 </tr>
                 </thead>
 
-                <tbody> <!-- Corps du tableau -->
+                <tbody>
+                <!-- Corps du tableau -->
+
                 <tr>
                     <th>NAdal</th>
                     <th>6-4</th>

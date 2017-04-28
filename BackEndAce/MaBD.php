@@ -8,10 +8,10 @@
 
 class MaBD {
 	//Params pour accès BDD
-	static private $host     = "5.196.143.39";			//MODIF
-	static private $base     = "Ace";      					//MODIF
+	static private $host     = "localhost";			//MODIF
+	static private $base     = "ace";      					//MODIF
 	static private $user     = "root";				  		//MODIF
-	static private $password = "biologie69";				//MODIF
+	static private $password = "";				//MODIF
 
 	static private $pdo = null; // Le singleton
 

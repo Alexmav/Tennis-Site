@@ -27,18 +27,44 @@
 include "../common/header.php";
 ?>
 
+  <?php
+  include"../../BackEndAce/GestionBDD.php";
+  $datasm = array();
+  $datasm = json_decode(getAllJoueursM(),true);
+  $datasf = array();
+  $datasf = json_decode(getAllJoueursF(),true);
+  ?>
 
 
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
     <div class="w3-content">
         <div class="w3-twothird">
-            <h1>Lorem Ipsum</h1>
-            <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+            <h1>Classement Homme</h1>
+            <table class="w3-table w3-bordered w3-striped w3-border test w3-hoverable">
+                <thead>
+                <tr class="w3-red">
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Nationalité</th>
+                    <th>Rang</th>
+                </tr>
+                </thead>
 
-            <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-                occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <tbody>
+                <!-- Corps du tableau -->
+                <?php
+                foreach($datasm as $data){
+                    echo "<tr>";
+                    echo "<th>".$data["Prenom"]."</th>";
+                    echo "<th>".$data["Nom"]."</th>";
+                    echo "<th>".$data["Nationalite"]."</th>";
+                    echo "<th>".$data["Rang"]."</th>";
+                    echo "</tr>";
+                }
+                ?>
+                </tbody>
+            </table>
         </div>
 
         <div class="w3-third w3-center">
@@ -52,16 +78,31 @@ include "../common/header.php";
 <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
     <div class="w3-content">
         <div class="w3-twothird">
+            <h1>Classement Femme</h1>
+            <table class="w3-table w3-bordered w3-striped w3-border test w3-hoverable">
+                <thead>
+                <tr class="w3-red">
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Nationalité</th>
+                    <th>Rang</th>
+                </tr>
+                </thead>
 
-          <table class="w3-table w3-bordered w3-striped w3-border test w3-hoverable">
-            <tbody>
-              <tr class="w3-red">
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Classement</th>
-              </tr>
-            </tbody>
-          </table>
+                <tbody>
+                <!-- Corps du tableau -->
+                <?php
+                foreach($datasf as $data){
+                    echo "<tr>";
+                    echo "<th>".$data["Prenom"]."</th>";
+                    echo "<th>".$data["Nom"]."</th>";
+                    echo "<th>".$data["Nationalite"]."</th>";
+                    echo "<th>".$data["Rang"]."</th>";
+                    echo "</tr>";
+                }
+                ?>
+                </tbody>
+            </table>
 
         </div>
     </div>
