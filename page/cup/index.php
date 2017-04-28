@@ -86,7 +86,7 @@ include "../common/header.php";
     </div>
 </div>
 
-<?php include "./page/common/footer.php" ?>
+<?php include "./common/footer.php" ?>
 
 <script>
     // Used to toggle the menu on small screens when clicking on the menu button
