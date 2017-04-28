@@ -41,7 +41,12 @@ include("MaBD.php");
     return json_encode($liste);
 }
   function getAllMatchs(){
-    return getAll("Match");
+    $bd    = MaBD::getInstance();
+
+    $stmt  = $bd->query("SELECT match.IdTournoi, match.IdJoueur1, match.IdJoueur2, match.Resultat, match.Vainqueur FROM match INNER JOIN joueur ON match.IdJoueur1,match.IdJoueur2 = joueur.IdJoueur  ORDER BY joueur.Rang ASC");
+
+    $liste = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return json_encode($liste);
   }
   function getAllOrganisateurs(){
     return getAll("Organisateur");
