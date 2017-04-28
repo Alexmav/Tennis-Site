@@ -8,9 +8,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="style.css">
-
-
-
 <body>
 
 
@@ -27,22 +24,17 @@
 
 <?php
  include "./page/common/header.php";
-
 ?>
 
-  <?php
-  include"./BackEndAce/GestionBDD.php";
-  $datas = array();
-  $datas = json_decode(getAllJoueursM());
-  ?>
+
 <!-- First Grid -->
 <div class="w3-row-padding w3-padding-64 w3-container">
     <div class="w3-content">
         <div class="w3-twothird">
-            <h1>Matchs en cours</h1>
-            <table class="w3-table w3-bordered w3-striped w3-border test w3-hoverable">
-                <thead>
-                <tr class="w3-red">
+            <h1>Matchs en coours</h1>
+            <table>
+                <thead> <!-- En-tête du tableau -->
+                <tr>
                     <th>Adversaire 1</th>
                     <th>Score</th>
                     <th>Adversaire 2</th>
@@ -50,9 +42,9 @@
                 </tr>
                 </thead>
 
-                <tbody>
-                <!-- Corps du tableau -->
 
+
+                <tbody> <!-- Corps du tableau -->
                 <tr>
                     <th>NAdal</th>
                     <th>6-4</th>
@@ -95,7 +87,7 @@
     </div>
 </div>
 
-<?php include "./common/footer.php" ?>
+<?php include "./page/common/footer.php" ?>
 
 <script>
     // Used to toggle the menu on small screens when clicking on the menu button
